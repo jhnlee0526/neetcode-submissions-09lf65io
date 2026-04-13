@@ -1,0 +1,31 @@
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        ## three pointers
+        #### time : O(n^2) : sorting O(n logn) + nested loops O(n^2)
+        #### space: O(m) for the output list
+        res = []
+        nums.sort() # time : O(n logn)
+        
+        for i in range(len(nums)):
+            # if current val is the same as the previous val, skip to the next
+            if i> 0 and nums[i] == nums[i - 1]:
+                continue
+            
+            l = i + 1
+            r = len(nums) - 1
+            while l < r:
+                sum = nums[i] + nums[l] + nums[r]
+                if sum > 0:
+                    r -= 1
+                elif sum < 0:
+                    l += 1
+                else:
+                    res.append([nums[i], nums[l], nums[r]])
+                    l += 1 # move just one pt
+                    # skip to the next when the current val is the same as the previous one.
+                    while l < r and nums[l] == nums[l - 1]:
+                        l += 1     
+        
+        return res
+        
+
